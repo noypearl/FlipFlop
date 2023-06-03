@@ -53,10 +53,3 @@ with open(state_filepath, 'r+b') as reader:
     reader.write(new_icount.to_bytes(4, byteorder='little'))
     reader.close()
     print("Done!")
-
-
-
-
-
-# unpack_header(buffer)
-# unpack_state(buffer)
