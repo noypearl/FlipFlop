@@ -9,7 +9,7 @@ maybe for others as well ¯\_(ツ)_/¯
 ## Tools
 * patcher.py - patch custom firmwares to preserve my own custom tweaks after flashing
 * levelup.py - patch .dolphin.state file to increase icount (xp) and level up the Flipper Dolphin
-* Convert num to bytes little endian etc. 
+* bytes.py - Convert num to bytes little endian etc. 
 
 ## Writeups
 [hacking-the-hackers-tool-pwning-flipper-zero](https://medium.com/@60noypearl/hacking-the-hackers-tool-pwning-flipper-zero-s-levels-for-fun-1dd16847da5a)
