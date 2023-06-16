@@ -1,0 +1,33 @@
+REM Author: NoyP
+REM Why: Because I like to dance and to lazy to open everything everytime
+REM What: Opens up dance folder, sets volume to 70%, enables Bluetooth and surfs to google drive 
+
+REM surf to google drive
+GUI r
+DELAY 150
+STRING chrome drive.google.com
+DELAY 50
+ENTER
+
+REM open dir
+GUI r
+DELAY 150
+STRING %USERPROFILE%\Documents\dance
+ENTER
+DELAY 150
+
+REM set volume to 70%
+GUI r
+DELAY 650
+STRING powershell Start-Process powershell 
+DELAY 150
+ENTER
+DELAY 500
+REM yes, I know it runs twice - https://github.com/UNC0V3R3D/Flipper_Zero-BadUsb/blob/main/BadUsb-Collection/Windows_Badusb/FUN/justdance/justdance.txt
+STRING Set-Volume 70; Function Set-Volume { Param([Parameter(Mandatory=$true)][ValidateRange(0,100)][Int]$volume); $keyPresses = [Math]::Ceiling( $volume / 2 ); $obj = New-Object -ComObject WScript.Shell; 1..50 | ForEach-Object {  $obj.SendKeys( [char] 174 )  }; for( $i = 0; $i -lt $keyPresses; $i++ ) {$obj.SendKeys( [char] 175 )}; }
+DELAY 650
+ENTER
+DELAY 650
+STRING Set-Volume 70; Function Set-Volume { Param([Parameter(Mandatory=$true)][ValidateRange(0,100)][Int]$volume); $keyPresses = [Math]::Ceiling( $volume / 2 ); $obj = New-Object -ComObject WScript.Shell; 1..50 | ForEach-Object {  $obj.SendKeys( [char] 174 )  }; for( $i = 0; $i -lt $keyPresses; $i++ ) {$obj.SendKeys( [char] 175 )}; }
+DELAY 650
+ENTER
