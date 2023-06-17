@@ -7,9 +7,29 @@ Just shitposting useless tools that are useful for me,
 maybe for others as well ¯\_(ツ)_/¯
 
 ## Tools
-* patcher.py - patch custom firmwares to preserve my own custom tweaks after flashing
-* levelup.py - patch .dolphin.state file to increase icount (xp) and level up the Flipper Dolphin
-* bytes.py - Convert num to bytes little endian etc. 
+### patcher.py 
+patch custom firmwares to preserve my own custom tweaks after flashing. <br> 
+#### Currently supports:
+
+- Patching the name of the dolphin in the firmware.
+- Patching the points of the Flappy Bird game in the firmware.
+- Building the firmware with custom arguments.
+```bash
+python patcher.py -p <path_to_firmware> -f <firmware_type> -b -a <build_args>
+```
+
+### levelup.py
+#### patch .dolphin.state file to increase icount (xp) and level up the Flipper Dolphin levels
+
+[hacking-the-hackers-tool-pwning-flipper-zero](https://medium.com/@60noypearl/hacking-the-hackers-tool-pwning-flipper-zero-s-levels-for-fun-1dd16847da5a)
+
+```bash
+python dolphin_state_patcher.py <file_path> <xp_value>
+```
+
+
+### /etc/
+- bytes.py - Convert num to bytes little endian etc. 
 
 ## Writeups
 [hacking-the-hackers-tool-pwning-flipper-zero](https://medium.com/@60noypearl/hacking-the-hackers-tool-pwning-flipper-zero-s-levels-for-fun-1dd16847da5a)
