@@ -1,4 +1,5 @@
 import argparse
+import subprocess
 import os
 import sys
 
@@ -7,7 +8,14 @@ class FirmwarePatcher:
         # Initialize the path to firmware directory
         self.firmware_dir_path = firmware_dir_path
         self.firmware_type = firmware_type
-        self.validate_firmware_exists()
+        self._validate_firmware_exists()
+        self._os = self._init_os()
+
+    def _init_os(self):
+        if os.name == 'nt':
+            return 'windows'
+        else:
+            return 'linux'
 
     def get_filename_path(self, filename):
         # Get the relative path from script execution point to filename
@@ -68,7 +76,8 @@ class FirmwarePatcher:
         print(f"Patching flappy bird counter points to {counter_points}")
         self.replace_text_in_firmware_file(target_filename,"game_state->points++",f"game_state->points+={counter_points}")
 
-    def validate_firmware_exists(self):
+
+    def _validate_firmware_exists(self):
         # Method to check if the firmware exists in the specified path
         try:
             self.get_filename_path('fbt')
@@ -76,20 +85,56 @@ class FirmwarePatcher:
             print(f"Firmware doesn't exist in {self.firmware_dir_path}, aborting script :( ")
             sys.exit(e)
 
+
+    def build_firmware(self, build_args):
+        # For preserving current dir
+        curr_dir = os.getcwd()
+        os_type = self._os
+        fbt_executable = 'fbt.cmd' if os_type == 'windows' else 'fbt'
+        command = f"./{fbt_executable} {build_args}"
+        # Otherwise the fbt build won't work and we'll get  No SConstruct file found error
+        os.chdir(self.firmware_dir_path)
+        process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+        # Print output as it becomes available
+        for line in iter(process.stdout.readline, ''):
+            print(line.decode(), end='')
+        
+        # Wait for the process to finish and get the return code
+        process.stdout.close()
+        return_code = process.wait()
+
+        if return_code != 0:
+            print(f"{return_code} Failed to build firmware when running {command}")
+            print(f"Error message: {process.stderr.read().decode()}")
+        else:
+            print(f"Built firmware successfully: \n Now go to dist and update to qFlipper")
+
+        # Return back to preserve script context
+        os.chdir(curr_dir)
+
+
+
+
 def parse_args():
     # Parse command-line arguments
     parser = argparse.ArgumentParser(description="Patching custom stuff in new firmwares")
     parser.add_argument("-p", "--path", default=".", help="path to directory of the custom firmware sources")
     parser.add_argument("-f", "--firmware", default="original", help="Firmware type of the flipper")
+    parser.add_argument("-b", "--build", help="Build the firmware as well with fbt. can have arguments",action='store_true', required=False)
+    parser.add_argument("-a", "--build_args", help="Custom arguments for the build",default="COMPACT=1 DEBUG=1 updater_package")
+
     args = parser.parse_args()
     return args
 
 def main():
     args = parse_args()
     patcher = FirmwarePatcher(args.path, args.firmware)
-    patcher.validate_firmware_exists()
     patcher.patch_dolphin_name()
     patcher.patch_flappy_bird(1337, 10)
+    if args.build:
+        patcher.build_firmware(args.build_args)
+
 
 if __name__ == "__main__":
     main()
