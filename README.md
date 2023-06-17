@@ -21,6 +21,25 @@ maybe for others as well ¯\_(ツ)_/¯
 
 ## Cheatsheet & tips
 
+### Building Firmware
+### Compile everything for development
+
+```sh
+./fbt FIRMWARE_APP_SET=debug_pack updater_package
+```
+
+### Compile everything for release + get updater package to update from microSD card
+
+```sh
+./fbt COMPACT=1 DEBUG=0 updater_package
+```
+
+Check `dist/` for build outputs.
+
+Use **`flipper-z-{target}-update-{suffix}.tgz`** to flash your device.
+
+
+
 ### Updating Firmware
 
 #### **Replace (CURRENT VERSION) with version that you downloaded from releases**
