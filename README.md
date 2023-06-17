@@ -13,3 +13,27 @@ maybe for others as well ¯\_(ツ)_/¯
 
 ## Writeups
 [hacking-the-hackers-tool-pwning-flipper-zero](https://medium.com/@60noypearl/hacking-the-hackers-tool-pwning-flipper-zero-s-levels-for-fun-1dd16847da5a)
+
+
+
+
+
+
+## Cheatsheet & tips
+
+### Updating Firmware
+
+#### **Replace (CURRENT VERSION) with version that you downloaded from releases**
+- Unpack `flipper-z-f7-update-(CURRENT VERSION).tgz` (or `.zip`) into any free folder on your PC or smartphone
+- You should find folder named `f7-update-(CURRENT VERSION)` that contains files like `update.fuf`, `resources.tar` and etc..
+- Remove microSD card from flipper and insert it into PC or smartphone (you can skip this step and upload all files using qFlipper)
+- Create new folder `update` on the root of the microSD card and move folder that you previously extracted from archive - `f7-update-(CURRENT VERSION)` into `update` on microSD card
+- So result should look like `update/f7-update-(CURRENT VERSION)/` with all files in this folder on microSD card, remember iOS default Files app doesn't show all files properly (3 instead of 6), so you need to use another app for unpacking or use PC or Android
+- Verify that all files are present on your microSD card
+- After all you need to insert microSD card back into flipper, navigate into filebrowser, open this file 
+`update/f7-update-(CURRENT VERSION)/update.fuf`
+- Update will start, wait for all stages
+- Done
+![manual](https://user-images.githubusercontent.com/40743392/235006410-19eaf58e-2425-4e8e-8ec9-973bda362c47.png)
+
+[source](https://github.com/DarkFlippers/unleashed-firmware/blob/dev/documentation/HowToInstall.md#update-firmware)
