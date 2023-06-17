@@ -22,7 +22,7 @@ DELAY 650
 STRING powershell Start-Process powershell 
 DELAY 150
 ENTER
-DELAY 500
+DELAY 2500
 REM yes, I know it runs twice - https://github.com/UNC0V3R3D/Flipper_Zero-BadUsb/blob/main/BadUsb-Collection/Windows_Badusb/FUN/justdance/justdance.txt
 STRING Set-Volume 70; Function Set-Volume { Param([Parameter(Mandatory=$true)][ValidateRange(0,100)][Int]$volume); $keyPresses = [Math]::Ceiling( $volume / 2 ); $obj = New-Object -ComObject WScript.Shell; 1..50 | ForEach-Object {  $obj.SendKeys( [char] 174 )  }; for( $i = 0; $i -lt $keyPresses; $i++ ) {$obj.SendKeys( [char] 175 )}; }
 DELAY 650
